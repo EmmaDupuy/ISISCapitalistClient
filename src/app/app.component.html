@@ -1,6 +1,6 @@
 <div class="header">
   <!--logo monde + nom-->
-  <div> 
+  <div>
     <span> <img [attr.src]="server+world.logo" /> </span>
     <span id="worldname"> {{world.name}} </span>
   </div>
@@ -14,7 +14,10 @@
 <div class="main">
   <div> liste des boutons de menu </div>
   <div class="product">
-    <div> premier produit </div>
+    <!--premier produit-->
+    <div>
+      <app-product [prod]="world.products.product[0]" class="product col-md-6"></app-product>
+    </div>
     <div> second produit </div>
     <div> troisième produit </div>
     <div> quatrième produit </div>
