@@ -8,24 +8,28 @@ import { World, Pallier, Product } from './world';
 export class RestserviceService {
 
   server = "http://localhost:8080";
-  user = "";  
+  user = "";
 
   constructor(private http: HttpClient) { }
 
-  getUser(){
+  getUser() {
     return this.user;
   };
-  
-  setUser(puser : string){
+
+  setUser(puser: string) {
     this.user = puser;
   };
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
-   }
-   getWorld(): Promise<World> {
+  }
+  getWorld(): Promise<World> {
     return this.http.get(this.server + "adventureisis/generic/world")
-    .toPromise().catch(this.handleError);
-   };
+      .toPromise().catch(this.handleError);
+  };
+
+  getServer(){
+    return this.server;
+  }
 }
