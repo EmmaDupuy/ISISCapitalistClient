@@ -1,10 +1,15 @@
 <div class="header">
-  <!--logo monde-->
-  <div> <img [attr.src]="server+world.logo" /> </span> </div>
+  <!--logo monde + nom-->
+  <div> 
+    <span> <img [attr.src]="server+world.logo" /> </span>
+    <span id="worldname"> {{world.name}} </span>
+  </div>
   <!--quantité d'argent-->
-  <div> argent </div>
-  <div> multiplicateur </div>
-  <div> ID du joueur </div>
+  <div> <span id="worldmoney"> {{world.money}} </span> </div>
+  <!--id joueur-->
+  <div> player id </div>
+  <!--multiplicateur-->
+  <div> <span id="worldangelbonus"> {{world.angelbonus}} </span> </div>
 </div>
 <div class="main">
   <div> liste des boutons de menu </div>
