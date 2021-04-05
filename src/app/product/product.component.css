@@ -1,0 +1,9 @@
+.produits img{
+    /*images toutes de la meme taille en gardant le ratio*/
+    max-width: 100%;
+    width: 150px;
+    height: auto;
+}
+.progressbar{
+    height: 50px;
+}
