@@ -16,9 +16,12 @@ export class AppComponent {
   qtmulti: string = "x1";
   showManagers = false;
   badgeManagers = 0;
+  username : string ="";
 
   constructor(private service: RestserviceService, private snackBar: MatSnackBar) {
     this.server = service.getServer();
+    this.username = localStorage.getItem("username") || "StrategicBoss" + Math.floor(Math.random() * 10000);
+    this.service.user = this.username;
     service.getWorld().then(
       world => {
         this.world = world;
@@ -29,6 +32,11 @@ export class AppComponent {
   onProductionDone(p: Product) {
     this.world.money += p.quantite * p.revenu;
     this.world.score += p.quantite * p.revenu;
+  }
+
+  onUsernameChange() {
+    localStorage.setItem("username", this.username);
+    this.service.user = this.username;
   }
 
   modifqtachat() {

@@ -7,7 +7,7 @@
   <!--quantité d'argent-->
   <div> <span id="worldmoney" [innerHTML]="world.money | bigvalue"> {{world.money}} </span> </div>
   <!--id joueur-->
-  <div> player id </div>
+  <div> <input type="text" [(ngModel)]="username" (change)="onUsernameChange()"/> </div>
   <!--multiplicateurs-->
   <!--<div> <span id="worldangelbonus"> {{world.angelbonus}} </span> </div>-->
   <div>
