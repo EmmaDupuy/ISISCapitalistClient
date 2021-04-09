@@ -1,82 +1,99 @@
-<div class="header">
-  <!--logo monde + nom-->
-  <div>
-    <span class="logo"> <img [attr.src]="server+world.logo" /> </span>
-    <!--<span id="worldname"> {{world.name}} </span>-->
+<div class="body">
+  <div class="headBand">
+    <!--logo monde + nom-->
+    <div>
+      <span class="logo"> <img [attr.src]="server+world.logo" /> </span>
+      <!--<span id="worldname"> {{world.name}} </span>-->
+    </div>
+    <div>
+      <h1 class="mainTitle">Follow Tom Nook road to success !</h1>
+    </div>
   </div>
-  <!--quantité d'argent-->
-  <div> <span id="worldmoney" [innerHTML]="world.money | bigvalue"> {{world.money}} </span> </div>
-  <!--id joueur-->
-  <div> <input type="text" [(ngModel)]="username" (change)="onUsernameChange()"/> </div>
-  <!--multiplicateurs-->
-  <!--<div> <span id="worldangelbonus"> {{world.angelbonus}} </span> </div>-->
-  <div>
-    <button class="bouton" (click)="modifqtachat()">{{qtmulti}}</button>
-  </div>
-</div>
-<div class="main">
-  <div>
-    <p>liste des boutons de menu </p>
-    <button class="managerbutton" mat-raised-button color="primary" [matBadge]="badgeManagers"
-      [matBadgeHidden]="badgeManagers==0" (click)="showManagers = !showManagers">Managers</button>
+  <div class="main">
+  <div class='header'>
+    <h1 id='titleUsername'>Username:</h1>
+    <!--id joueur-->
+    <div> <input type="text" [(ngModel)]="username" (change)="onUsernameChange()"/> </div>
+    <h1 id='titleBells'>Bells:</h1>
+    <div class='money'>
+      <img id='clochettes' src="https://www.margxt.fr/wp-content/uploads/2020/12/Animal-Crossing-New-Horizons-Calendrier-avent-08.png"/>
+      <!--quantité d'argent-->
+      <div> <span id="worldmoney" [innerHTML]="world.money | bigvalue"> {{world.money}} </span> </div>
+    </div>
+    
+    <!--multiplicateurs-->
+    <!--<div> <span id="worldangelbonus"> {{world.angelbonus}} </span> </div>-->
+    <div class='qtAchat'>
+      <h1>Buy:</h1>
+      <button class="bouton" (click)="modifqtachat()">{{qtmulti}}</button>
+    </div>
+
+    <div>
+      <p>liste des boutons de menu </p>
+      <button class="managerbutton" mat-raised-button color="primary" [matBadge]="badgeManagers"
+        [matBadgeHidden]="badgeManagers==0" (click)="showManagers = !showManagers">Managers</button>
+    </div>
   </div>
 
-  <!--******************************MANAGERS-->
-  <div *ngIf="showManagers" class="modal">
-    <div>
-      <h1 class="title">Managers make you feel better !</h1>
-    </div>
-    <div>
-      <div *ngFor="let manager of world.managers.pallier">
-        <div *ngIf="!manager.unlocked" class="managerslayout">
-          <div>
-            <div class="logo"><img class="round" [attr.src]="server+manager.logo" /> </div>
-          </div>
-          <div>
-            <div class="managername"> {{ manager.name}} </div>
-            <div class="managercible"> {{ world.products.product[manager.idcible-1].name }} </div>
-            <div class="managercost"> {{ manager.seuil}} </div>
-          </div>
-          <div>
-            <button class="hirebutton" (click)="hireManager(manager)"
-              [ngClass]="{'selectable' : (world.money >= manager.seuil)}">Engager</button>
+    
+
+    <!--******************************MANAGERS-->
+    <div *ngIf="showManagers" class="modal">
+      <div>
+        <h1 class="title">Managers make you feel better !</h1>
+      </div>
+      <div>
+        <div *ngFor="let manager of world.managers.pallier">
+          <div *ngIf="!manager.unlocked" class="managerslayout">
+            <div>
+              <div class="logo"><img class="round" [attr.src]="server+manager.logo" /> </div>
+            </div>
+            <div>
+              <div class="managername"> {{ manager.name}} </div>
+              <div class="managercible"> {{ world.products.product[manager.idcible-1].name }} </div>
+              <div class="managercost"> {{ manager.seuil}} </div>
+            </div>
+            <div>
+              <button class="hirebutton" (click)="hireManager(manager)"
+                [ngClass]="{'selectable' : (world.money >= manager.seuil)}">Engager</button>
+            </div>
           </div>
         </div>
+        <button class="closebutton" mat-raisedbutton color="primary" (click)="showManagers = !showManagers">Close</button>
       </div>
-      <button class="closebutton" mat-raisedbutton color="primary" (click)="showManagers = !showManagers">Close</button>
     </div>
-  </div>
-  <!--******************************PRODUITS-->
-  <div class="product">
-    <!--produit 1-->
-    <div>
-      <app-product [prod]="world.products.product[0]" class="product col-md-6"
-        (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
-    </div>
-    <!--produit 2-->
-    <div>
-      <app-product [prod]="world.products.product[1]" class="product col-md-6"
-        (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
-    </div>
-    <!--produit 3-->
-    <div>
-      <app-product [prod]="world.products.product[2]" class="product col-md-6"
-        (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
-    </div>
-    <!--produit 4-->
-    <div>
-      <app-product [prod]="world.products.product[3]" class="product col-md-6"
-        (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
-    </div>
-    <!--produit 5-->
-    <div>
-      <app-product [prod]="world.products.product[4]" class="product col-md-6"
-        (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
-    </div>
-    <!--produit 6-->
-    <div>
-      <app-product [prod]="world.products.product[5]" class="product col-md-6"
-        (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
+    <!--******************************PRODUITS-->
+    <div class="product">
+      <!--produit 1-->
+      <div class='div1'>
+        <app-product [prod]="world.products.product[0]" class="product col-md-6"
+          (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
+      </div>
+      <!--produit 2-->
+      <div class='div2'>
+        <app-product [prod]="world.products.product[1]" class="product col-md-6"
+          (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
+      </div>
+      <!--produit 3-->
+      <div class='div3'>
+        <app-product [prod]="world.products.product[2]" class="product col-md-6"
+          (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
+      </div>
+      <!--produit 4-->
+      <div class='div4'>
+        <app-product [prod]="world.products.product[3]" class="product col-md-6"
+          (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
+      </div>
+      <!--produit 5-->
+      <div class='div5'>
+        <app-product [prod]="world.products.product[4]" class="product col-md-6"
+          (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
+      </div>
+      <!--produit 6-->
+      <div class='div6'>
+        <app-product [prod]="world.products.product[5]" class="product col-md-6"
+          (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
+      </div>
     </div>
   </div>
 </div>
