@@ -4,6 +4,7 @@ import { Input } from '@angular/core';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { RestserviceService } from "../restservice.service";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product',
@@ -22,16 +23,15 @@ export class ProductComponent implements OnInit {
   _money: number = 0;
   prix_actuel: number = 0;
   prix = 0;
-  true="false";
   total = 0;
 
-  constructor(private service: RestserviceService) { }
+  constructor(private service: RestserviceService, private snackBar: MatSnackBar) { }
 
   //init
   ngOnInit(): void {
     setInterval(() => { this.calcScore(); }, 100);
     this.progressbarvalue = 0;
-    this.calcPrice("x1");
+    //this.calcPrice("x1");
   }
 
   //inputs
@@ -75,23 +75,21 @@ export class ProductComponent implements OnInit {
     /*for (let i = 0; i < 100; i++) {
       this.progressbarvalue = i;
     }*/
-    //this.product.timeleft = this.product.vitesse;
-    //this.lastupdate = Date.now();
-    if(this.product.quantite !=0 && this.true!="true"){
-      this.true="true";
+    if(this.product.quantite !=0 ){
       this.product.timeleft = this.product.vitesse;
       this.lastupdate = Date.now();
     }
+
   }
 
-  calcPrice(qt: string){
-    if (qt=="x1"){
+  calcPrice(){
+    if (this._qtmulti=="x1"){
       this.prix=this.product.cout;
     }
-    else if (qt=="x10"){
+    else if (this._qtmulti=="x10"){
       this.prix=this.product.cout *((1 - (this.product.croissance ** 10))/(1  - this.product.croissance));
     }
-    else if (qt=="x100"){
+    else if (this._qtmulti=="x100"){
       this.prix=this.product.cout *((1 - (Math.pow(this.product.croissance,100)) )/(1  - this.product.croissance));
     }
     else {
@@ -109,6 +107,7 @@ export class ProductComponent implements OnInit {
     if (this.product.timeleft <= 0 || this.product.timeleft == null) {
       this.progressbarvalue = 0;
       this.notifyProduction.emit(this.product);
+      this.product.timeleft = 0;
     } else {
       this.progressbarvalue = ((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100
     }
@@ -129,32 +128,26 @@ export class ProductComponent implements OnInit {
       case "x1":
         this.total = this.product.cout;
         this.product.cout = this.product.croissance * this.product.cout;
-        console.log("le cout"+this.product.cout);
         this.product.quantite += 1;
-        this.calcPrice(this._qtmulti);
-        console.log(this._money);
         break;
       case "x10":
         this.total = this.product.cout *((1 - (this.product.croissance ** 10))/(1  - this.product.croissance));
         this.product.cout = (this.product.croissance ** 10) * this.product.cout;
         this.product.quantite += 10;
-        this.calcPrice(this._qtmulti);
         break;
       case "x100":
         this.total = this.product.cout *((1 - (Math.pow(this.product.croissance,100)) )/(1  - this.product.croissance));
         this.product.cout = (this.product.croissance ** 100) * this.product.cout;
         this.product.quantite += 100;
-        this.calcPrice(this._qtmulti);
         break;
       case "max":
         this.total = this.product.cout *((1 - Math.pow(this.product.croissance,this.qtemax))/(1  - this.product.croissance));
         this.product.cout = (this.product.croissance ** this.qtemax) * this.product.cout;
         this.product.quantite += this.qtemax;
-        this.calcPrice(this._qtmulti);
         break;
     }
-    console.log("total: "+this.total);
     this.notifyPurchase.emit(this.total);
     this.service.putProduct(this.product);
+    this.calcPrice();
   }
 }

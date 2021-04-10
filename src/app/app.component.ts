@@ -56,8 +56,8 @@ export class AppComponent {
     }
   }
 
-  onBuy(totalAchat: number) {
-    return totalAchat;//la somme qui doit etre soustraite  de l'argent possédé c'est le cout total de l'achat ?
+  onBuy(monde : World) {
+    this.world.money = monde.money;
   }
 
   hireManager(manager: Pallier) {
@@ -67,6 +67,7 @@ export class AppComponent {
       manager.unlocked = true;
       this.world.products.product[manager.idcible - 1].managerUnlocked = true;
       this.popMessage("Vous avez engagé " + manager.name + "!");
+      this.service.putManager(manager);
     }
   }
 
