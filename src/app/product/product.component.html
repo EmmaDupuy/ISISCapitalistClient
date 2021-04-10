@@ -1,7 +1,8 @@
+
 <div class="produits">
-    <p>{{product.name}}</p>
+    <p id='productName'>{{product.name}}</p>
     <img [attr.src]="server+product?.logo" class="round" (click)="startFabrication()"/>
 </div>
-<div>
+<div class='progressBars'>
     <mat-progress-bar class="progressbar" [value]="progressbarvalue"></mat-progress-bar>
 </div>

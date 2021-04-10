@@ -38,30 +38,37 @@
     
 
     <!--******************************MANAGERS-->
-    <div *ngIf="showManagers" class="modal">
-      <div>
-        <h1 class="title">Managers make you feel better !</h1>
+    <div *ngIf="showManagers" class="modal" id="myModal">
+      <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" (click)="showManagers = !showManagers">&times;</span>
+        <h1 class="title">Need some help ?</h1>
       </div>
-      <div>
+      
         <div *ngFor="let manager of world.managers.pallier">
           <div *ngIf="!manager.unlocked" class="managerslayout">
+            <div class="modal-body">
             <div>
               <div class="logo"><img class="round" [attr.src]="server+manager.logo" /> </div>
             </div>
-            <div>
-              <div class="managername"> {{ manager.name}} </div>
-              <div class="managercible"> {{ world.products.product[manager.idcible-1].name }} </div>
-              <div class="managercost"> {{ manager.seuil}} </div>
-            </div>
-            <div>
+            <div class="managerDetails">
+              <div class="managername">This is: {{ manager.name}} </div><br><br>
+              <div class="managercible">Manages: <br><br>{{ world.products.product[manager.idcible-1].name }}</div><br><br>
+              <div class="managercost">Cost: {{ manager.seuil}} </div><br><br>
               <button class="hirebutton" (click)="hireManager(manager)"
-                [ngClass]="{'selectable' : (world.money >= manager.seuil)}">Engager</button>
+                [ngClass]="{'selectable' : (world.money >= manager.seuil)}">Hire !</button>
             </div>
+              </div>
+              </div>
           </div>
+          <button class="closebutton" mat-raisedbutton color="primary" (click)="showManagers = !showManagers">Close</button>
         </div>
-        <button class="closebutton" mat-raisedbutton color="primary" (click)="showManagers = !showManagers">Close</button>
       </div>
-    </div>
+      
+
+
+
+
     <!--******************************PRODUITS-->
     <div class="product">
       <!--produit 1-->
@@ -70,30 +77,31 @@
           (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
       </div>
       <!--produit 2-->
-      <div class='div2'>
+      <div class='div1'>
         <app-product [prod]="world.products.product[1]" class="product col-md-6"
           (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
       </div>
       <!--produit 3-->
-      <div class='div3'>
+      <div class='div1'>
         <app-product [prod]="world.products.product[2]" class="product col-md-6"
           (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
       </div>
       <!--produit 4-->
-      <div class='div4'>
+      <div class='div1'>
         <app-product [prod]="world.products.product[3]" class="product col-md-6"
           (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
       </div>
       <!--produit 5-->
-      <div class='div5'>
+      <div class='div1'>
         <app-product [prod]="world.products.product[4]" class="product col-md-6"
           (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
       </div>
       <!--produit 6-->
-      <div class='div6'>
+      <div class='div1'>
         <app-product [prod]="world.products.product[5]" class="product col-md-6"
           (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti"></app-product>
       </div>
     </div>
+
   </div>
 </div>
