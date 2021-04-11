@@ -24,6 +24,7 @@ export class ProductComponent implements OnInit {
   prix_actuel: number = 0;
   prix = 0;
   total = 0;
+  coutP = 0;
 
   constructor(private service: RestserviceService, private snackBar: MatSnackBar) { }
 
@@ -83,7 +84,22 @@ export class ProductComponent implements OnInit {
   }
 
   calcPrice(){
-    if (this._qtmulti=="x1"){
+    switch(this._qtmulti){
+      case "x1":
+        this.coutP = this.product.cout;
+        break;
+      case "x10":
+        this.coutP = this.product.cout *((1 - (this.product.croissance ** 10))/(1  - this.product.croissance));
+
+        break;
+      case "x100":
+        this.coutP = this.product.cout *((1 - (Math.pow(this.product.croissance,100)) )/(1  - this.product.croissance));
+        break;
+      case "max":
+        this.coutP = this.product.cout *((1 - Math.pow(this.product.croissance,this.qtemax))/(1  - this.product.croissance));
+        break;
+    }
+    /*if (this._qtmulti=="x1"){
       this.prix=this.product.cout;
     }
     else if (this._qtmulti=="x10"){
@@ -94,7 +110,7 @@ export class ProductComponent implements OnInit {
     }
     else {
       this.prix=this.product.cout *((1 - Math.pow(this.product.croissance,this.qtemax))/(1  - this.product.croissance));
-    }
+    }*/
   }
 
   calcScore() {

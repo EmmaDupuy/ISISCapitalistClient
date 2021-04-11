@@ -23,11 +23,13 @@ export class RestserviceService {
   };
 
   getWorld(): Promise<World> {
-    return this.http.get(this.server + "adventureisis/generic/world")
+    return this.http.get(this.server + "adventureisis/generic/world"/*, {
+      headers: this.setHeaders(this.user) => les images ne s'affichent plus quand je mets ça
+    }*/)
       .toPromise().catch(this.handleError);
   };
 
-  getServer(){
+  getServer() {
     return this.server;
   };
 
@@ -42,7 +44,7 @@ export class RestserviceService {
   setUser(puser: string) {
     this.user = puser;
   };
-  
+
   putManager(manager: Pallier): Promise<Response> {
     return this.http.put(this.server + "adventureisis/generic/manager", manager, {
       headers: this.setHeaders(this.user)

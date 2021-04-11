@@ -20,11 +20,10 @@ export class AppComponent {
 
   constructor(private service: RestserviceService, private snackBar: MatSnackBar) {
     this.server = service.getServer();
-    this.username = localStorage.getItem("username") || "StrategicBoss" + Math.floor(Math.random() * 10000);
-    this.service.user = this.username;
     service.getWorld().then(
       world => {
         this.world = world;
+        this.username = localStorage.getItem("username") || "StrategicBoss" + Math.floor(Math.random() * 10000);
       });
 
   }
