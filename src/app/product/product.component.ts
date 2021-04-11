@@ -57,7 +57,7 @@ export class ProductComponent implements OnInit {
 
   @Input()
   set money(value: number) {
-    this.money = value;
+    this._money = value;
     if (this._money && this.product) {
       this.calcMaxBuy();
     }
