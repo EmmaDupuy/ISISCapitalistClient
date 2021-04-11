@@ -2,7 +2,8 @@
 <div class="produits">
     <p id='productName'>{{product.name}}</p>
     <img [attr.src]="server+product?.logo" class="round" (click)="startFabrication()"/>
-    <p id='productcout'>{{product.cout}}</p>
+    <div [ngSwitch]="_qtmulti"><p id='productcout'>{{product.cout}}</p></div>
+    
 
 </div>
 <div class='progressBars'>
